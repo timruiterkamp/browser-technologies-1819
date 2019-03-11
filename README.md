@@ -49,10 +49,42 @@ The message contains the message: 'Cookies please, it looks like your browsers d
 
 !['Netflix cookie error page'](gh-images/netflix-error-cookies.png)
 
-**How does Facebook handle my diet?**
+**How does the other video platform Youtube hold up?**  
+When blocking cookies, Youtube automaticly logs you out of their platform. A fun thing I noticed is that I normally use a dark theme for youtube and this is also gone. This will probably be connected to your account. Other than that Youtube generated 10 errors and some warnings when the cookies are blocked. This means that there are a lot of third parties related to the Youtube service
+
+|                    Youtube without cookies                    |                  Youtube errors                   |
+| :-----------------------------------------------------------: | :-----------------------------------------------: |
+| !['Youtube page without cookies'](gh-images/youtube-page.png) | !['Youtube errors'](gh-images/youtube-errors.png) |
+
+**How does Facebook handle my diet?**  
 Well besides showing me the homepage, they don't. Signing up and logging in both give the error page that they need cookies before you can continue.  
 It's not like netflix where you get a complete error page but at facebook the just show a small container with the message: 'Cookies required.'
 
 |                     Sign in error page                     |                     Sign up error page                     |
 | :--------------------------------------------------------: | :--------------------------------------------------------: |
 | !['Facebook sign in error page'](gh-images/fb-sign-in.png) | !['Facebook sign up error page'](gh-images/fb-sign-up.png) |
+
+Let's get into some bigger companies withing a 20 mile radius.
+The first site I'm going to investigate is AZ.nl.
+
+**Az**  
+When visiting the website of AZ without cookies, the first question you get is to accept their cookies. No matter if you have them blocked, the question still exists. After clicking an option you cannot go anywhere since the website doesn't function without cookies.
+
+You can't click on go to the home site, but you can click on the buy tickets button. However, after clicking on the 'buy tickets' the page will freeze and if you click on any element you will be asked to accept cookies again.
+
+!['AZ cookie wall'](gh-images/az-error.png)
+
+**Albert Heijn**  
+The homepage of Albert Heijn almost works without any problems. But when you visit the detail page to gather some information of products. 4 Errors will appear and the page is loaded after 1.2 seconds but it will take another 27 seconds before the images and the rest of the content is finally loaded.
+
+|                Sign in error page                 |                                Sign up error page                                 |
+| :-----------------------------------------------: | :-------------------------------------------------------------------------------: |
+| !['AH detail page'](gh-images/ah-detail-page.png) | !['ah errors'](gh-images/ah-errors.png) !['ah load speed'](gh-images/ah-load.png) |
+
+### conclusion
+
+The web is a much slower and less fun place to be when you're ignoring the cookies. Many websites don't work as the probably rely on user information like storage of login name, email and password to make suggestions and connect information.
+
+## Will a tunnel break the web?
+
+In this section I will investigate
