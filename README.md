@@ -1,28 +1,42 @@
-# Browser Technologies @cmda-minor-web 1819
-//Robuuste, toegankelijke websites leren bouwen …
+# Browser technologies
 
-In het vak Browser Technologies leer je hoe je goede, robuuste, toegankelijke websites maakt. Je gaat leren over Progressive Enhancement, Feature Detection en Fallback. Het web is er voor iedereen. In dit vak leer je hoe je daarvoor kan zorgen.
+In this class I will tackle different aspects of creating a strong, unbreakable product that's accessible to (almost) everyone.
 
-Een van de mooiste principes van het web is dat het er echt is voor iedereen. Iedereen met een computer en een browser moet gebruik kunnen maken van het web. Het web is geen gecontroleerde (programmeer) omgeving. Je kan er gerust van uit gaan dat niemand precies hetzelfde te zien krijgt als wat jij ziet in jouw browser. Er zijn natuurlijk de technische beperkingen. Zoals - Afmetingen van de browser - Grootte van het apparaat - Manier van interactie - Kwaliteit van de hardware - Kwaliteit van het netwerk. En er zijn mensen. Allemaal verschillende mensen ...
+## Research
 
-## Leerdoelen
-- _Wat is Progressive enhancement en hoe kun je dit toepassen._
-- _Hoe doe je Feature Detection en wat doe je als een techniek niet werkt of wordt ondersteund._
-- _Leren een Browser Technologies onderzoeken, testen en implementeren als enhancement._
+The subjects I was assigned to existed out of doing research into cookies and network performance.  
+During the first week of this subject I will research the subjects and create a better understanding.
 
-[Rubric](https://docs.google.com/spreadsheets/d/1X8XBbblGAcoij4zPcbjZ5FHcQMusn1hc0NvNkzP5qx4/edit?usp=sharing)
+## Everyone likes cookies right?
 
-## Programma
+Cookies are small bits of data that can have positive and negative effects on your website when connected to the internet. Cookies work mostly without you noticing that the cookies are at work. However, after a while cookies stack up and the consequences might be more noticeable.
 
-### Week 1
-Doel: Het web is voor iedereen. Leren over Progressive enhancement en kennismaken met testen en het device lab.
-- [Les 1 - Progressive enhancement & Briefing Opdracht 1.1](https://docs.google.com/presentation/d/1j2N22palCDin_0jX89DItLj9kQy8YhwwuvcA_XnhjWQ/edit?usp=sharing)
-- [Opdracht 1.1 - Breek het web](Opdracht1.1.md)
+### The two types of cookies:
 
+_Session cookies: _
+Only active when visiting the website and are deleted when closing the browser. These cookies do not collect data from your computer but do store information relevant to the visit.
 
-### Week 2
-Doel: Wat laat je zien als een browser of gebruiker een 'enhancement' niet kan tonen of zien? Hoe doe je Feature Detection en wat doe je als een techniek niet werkt of wordt ondersteund?
+_Persistent cookies:_
+These cookies are stored in the browser and also known as permanent cookies and only get deleted when you do it manually. The persistent cookies do have an expiry date, but that can take years.
 
+_Pros of persistent cookies:_
+Cookies can help save page data so that when you visit it the next time the page loads quicker.
 
-### Week 3
-Doel: Verder werken aan de opdracht.
+_Cons of persistent cookies:_
+The data that has been gathered, while not having bad effects, can stack up and leading to slow internet performance. Deleting these cookies will lead to faster internet but loading pages will be taking longer due to the cookies being deleted.
+
+### Influence of cookies:
+
+_Good:_
+The influence of cookies can be seen in sites you visit frequently like your bank or email websites. Cookies help to make the content more personal to your use. Maybe the site gives you questions and based on the answer, that is being stored as a cookie, the next visit the content you're seeing is more personal based on your question. In this case, the cookie helps save information to improve your overall experience.
+
+An example of this is that cookies can remeber filled in information in forms so you don't have to the next time you visit the website.
+
+_Bad:_
+The downside of cookies is that sometimes it can contain malicious spyware to help ads gather personal information. You may not notice this at first but this results in more personalized ads and ways to interact with you more effectively. Third parties like Google and Facebook are known for doing this.
+
+The third parties are gathering every website you visit and determine your interests for ads, other users or even the government through cookies.
+
+There are known issues with cookies in some browsers where through cookies the developer of the website/cookie gained access to personal information like email, passwords and even credit card information. Very serious information can be gained through cookies,
+
+### How does the web behave when you're on a diet and decline the cookies?
