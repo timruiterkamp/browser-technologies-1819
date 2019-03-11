@@ -13,26 +13,26 @@ Cookies are small bits of data that can have positive and negative effects on yo
 
 ### The two types of cookies:
 
-_Session cookies: _
+**Session cookies:**
 Only active when visiting the website and are deleted when closing the browser. These cookies do not collect data from your computer but do store information relevant to the visit.
 
-_Persistent cookies:_
+**Persistent cookies:**
 These cookies are stored in the browser and also known as permanent cookies and only get deleted when you do it manually. The persistent cookies do have an expiry date, but that can take years.
 
-_Pros of persistent cookies:_
+**Pros of persistent cookies:**
 Cookies can help save page data so that when you visit it the next time the page loads quicker.
 
-_Cons of persistent cookies:_
+**Cons of persistent cookies:**
 The data that has been gathered, while not having bad effects, can stack up and leading to slow internet performance. Deleting these cookies will lead to faster internet but loading pages will be taking longer due to the cookies being deleted.
 
 ### Influence of cookies:
 
-_Good:_
+**Good:**
 The influence of cookies can be seen in sites you visit frequently like your bank or email websites. Cookies help to make the content more personal to your use. Maybe the site gives you questions and based on the answer, that is being stored as a cookie, the next visit the content you're seeing is more personal based on your question. In this case, the cookie helps save information to improve your overall experience.
 
 An example of this is that cookies can remeber filled in information in forms so you don't have to the next time you visit the website.
 
-_Bad:_
+**Bad:**
 The downside of cookies is that sometimes it can contain malicious spyware to help ads gather personal information. You may not notice this at first but this results in more personalized ads and ways to interact with you more effectively. Third parties like Google and Facebook are known for doing this.
 
 The third parties are gathering every website you visit and determine your interests for ads, other users or even the government through cookies.
