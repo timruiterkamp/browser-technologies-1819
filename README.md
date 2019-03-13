@@ -128,6 +128,38 @@ CMD is quite optimized if we look at slow internet connections.
 | :--------------------------------------------------: | :--------------------------------------------------: |
 | !['CMD site after 30 seconds'](gh-images/cmd-30.png) | !['CMD site after ~ a minute'](gh-images/cmd-60.png) |
 
+### Github
+
+Github has set their focus on giving you the layout as first with your repositories on the left, discover repositories on the right and in the middle a loading state for the repositories you follow.
+
+- The loading was quite fast,DomContent in 9.99, load on 10.32, the repositories came in between 12-16 seconds and the images were added within 5 seconds after that.But beside this the complete loading of the page only finished after 54.60 seconds, this existed out of slowly loading the other images of the repositories.
+
+!['Github performance'](gh-images/gh-performance.png)
+
+### FC Castricum
+
+How does the local football club hold up to slow internet.
+
+- It took more than 50 seconds before something was shown
+- They prioritized their layout structure and news items.
+- After the layout and content were loaded the header image came in.
+- Overall it took 57.13s for the DomContent to load and the loading was finished around 1.3 minutes.
+- I found out they loaded 18 external fonts on the website, which took quite some while.
+
+!['FCC performance'](gh-images/fcc-performance.png)
+
+### Vitesse '22 Castricum
+
+How does the rival football club compete.
+
+- The layout was already loaded at 13 seconds
+- They are giving feedback in the way they load the global layout first, then the titles and after that the header image
+- The last thing to be loaded on the website are the news item images.
+- The DomContent was loaded at 31.5 seconds, the load at 1.1 minutes and the complete loading was finished at 1.9 minutes.
+- They use a CDN to deliver static content.
+
+!['Vitesse '22 performance'](gh-images/vitesse-performance.png)
+
 ### Conclusion
 
 Pages are not really optimized. You see that they are trying to show the most import and least heavy content first, like text and titles. What was good to see, is that at the voorhoede you got a responsive like at least within a 5 second gap on the homepage. If you're already aware about your slow speed, this website gives a very good feedback.
