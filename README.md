@@ -85,6 +85,49 @@ The homepage of Albert Heijn almost works without any problems. But when you vis
 
 The web is a much slower and less fun place to be when you're ignoring the cookies. Many websites don't work as the probably rely on user information like storage of login name, email and password to make suggestions and connect information.
 
-## Will a tunnel break the web?
+## Will a tunnel break the web (Bandwidth research)?
 
-In this section I will investigate
+In this section I will investigate how websites will respond to very slow internet. Will the websites break, do they show anything or do I just have to wait a very long time. Let's find out.
+
+I'm going to test this on a slow 3G network and see how big and small companies react to it.
+
+First I'm going to test Facebook, as a very big company with many customers all over the globe, they have got to support many connection speeds.
+
+### Facebook
+
+Things I noticed during this test:
+
+- Facebook keeps loading data, even long after everything for the eye is loaded. It even went up to a loading time of 16 minutes  
+  -Facebook, althought slow, shows you pure messages and global layout first and after that the profile pictures will be visible and at last the videos and post images. This way you can see some content while waiting for the full page to load.
+
+!['Slow Facebook loading time'](gh-images/fb-slow.png)
+
+### Voorhoede
+
+The Voorhoede does some really nice things when handling slow internet.
+
+- Shows the menu bar and the company expertise first
+- Then the subtitles and bigger content come in
+- At last, images will be showing up.
+- Small transfer size, 806kb.
+- DomContentLoad and Load took 20.96s and the requests were finished at 27s
+- Looks like they made a use of http2 and http, as some requests were loaded async and some in the old waterfall way.
+
+!['Voorhoede performance'](gh-images/voorhoede-performance.png)
+
+### CMD
+
+CMD is quite optimized if we look at slow internet connections.
+
+- The basic content like text load first
+- The other images come after the text
+- The header image comes at last
+- It takes quite some while for the site to load. It took 1.4 minutes for the DomContent to load and the requests were finished at 1.6 minutes.
+
+|                      After 30s                       |                    After ~ 1 min                     |
+| :--------------------------------------------------: | :--------------------------------------------------: |
+| !['CMD site after 30 seconds'](gh-images/cmd-30.png) | !['CMD site after ~ a minute'](gh-images/cmd-60.png) |
+
+### Conclusion
+
+Pages are not really optimized. You see that they are trying to show the most import and least heavy content first, like text and titles. What was good to see, is that at the voorhoede you got a responsive like at least within a 5 second gap on the homepage. If you're already aware about your slow speed, this website gives a very good feedback.
