@@ -6,16 +6,15 @@ I already tested multiple websites on their ability to handle people who turn of
 
 The things I tested:
 
-- **Turn off mouse/trackpad**  
-  You can search through my application and type the search term you want to search for. The only problems is that when you then want to select an item, this is not possible. As the links are hidden within a div.  
-  The solution for this would be changing the div into a button to make it accesible.
+**Turn off mouse/trackpad**  
+ You can search through my application and type the search term you want to search for. The only problems is that when you then want to select an item, this is not possible. As the links are hidden within a div.  
+ The solution for this would be changing the div into a button to make it accesible.
 
-- **Turn off javascript**  
-  The application will not work as all the content is loaded through javascript. A solution to this problem is to create the requests and build the files server side and then serve them. This way you won't be in need of any javascript.
+**Turn off javascript**  
+ The application will not work as all the content is loaded through javascript. A solution to this problem is to create the requests and build the files server side and then serve them. This way you won't be in need of any javascript.
 
-- **Turn off images**
-
-- The website functions totally fine without images, the only thing missing are alt-texts and placeholders. The design doesn't break but it just shows a white block.
+**Turn off images**  
+The website functions totally fine without images, the only thing missing are alt-texts and placeholders. The design doesn't break but it just shows a white block.
 
 **Turn off custom fonts**  
 When I turn off fonts everything still looks good, the text just falls back on the sans-serif fonts. I could load the fonts through local imports which would solve the fonts being called from a third party.
