@@ -1,0 +1,7 @@
+body {
+  min-height: 6000px;
+}
+
+main {
+  position: fixed;
+}

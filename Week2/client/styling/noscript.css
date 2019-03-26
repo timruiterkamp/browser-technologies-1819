@@ -1,0 +1,9 @@
+.routes {
+  margin-top: 14rem; }
+
+.route-description {
+  width: 80vw;
+  max-width: 500px;
+  background-color: white;
+  padding: 1em;
+  margin: 1em auto; }

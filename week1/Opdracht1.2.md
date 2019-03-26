@@ -58,3 +58,8 @@ Fixes I could implement are completely removing the intro text from the DOM and 
 - [ ] Download fonts to the project enviroment and include them instead of sending a request to a third party.
 - [ ] Fix the SSL error to test in the device lab.
 - [ ] Make sure the LocalStorage is accesible in the window.
+
+## Feedback
+
+- When svg's get read by a screenreader, it will speak number out loud. Remove svg's for screenreaders and use images.
+-

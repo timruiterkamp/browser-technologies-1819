@@ -1,0 +1,20 @@
+<h1>How to get to the Device Lab</h1>
+<form class="search-form" method="POST" id="search-form" action="searchlocation">
+  <input type="text" name="location" id="location" placeholder="search current location">
+  <input type="submit" value="search" />
+</form>
+<div id="instruction"></div>
+
+<div id="map-container">
+</div>
+<noscript>
+  <div class="routes">
+    {{#each directions}}
+    <article class="route-description">
+      <h3>{{this.instruction}} after {{this.distance}} meters</h3>
+      <p>Estimated time: {{this.duration}} minutes</p>
+      <p>Current location: {{this.name}}</p>
+    </article>
+    {{/each}}
+  </div>
+</noscript>
