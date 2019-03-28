@@ -25,8 +25,8 @@ express()
     })
   )
   .use(bodyParser.json())
-  .get("/", all)
   .post("/searchlocation", directions)
+  .get("/", all)
   .listen(process.env.PORT || 1902);
 
 async function all(req, res, next) {
