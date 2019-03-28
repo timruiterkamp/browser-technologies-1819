@@ -152,3 +152,18 @@ The first test I ran was in safari, the problem here was that it loaded geolocat
 ### Safari mobile
 
 The appearance of a input type didn't work correctly, so I solved this by using `-webkit-appearance`.
+Another point I reconized is that when the site is loaded over http, requests can't be resolved. The url is https but I should create a redirect for every http request.
+
+### Firefox
+
+I did'nt really found any problem here.
+
+### Opera mini mobile
+
+No problems at all, very fast responses and everything works correctly.
+
+### Edge
+
+Somehow I got xmlHTTPrequest error: network error. But when I searched for a location there was no problem. It picked up the server side and the essention of the application is fullfilled.
+
+### IE11

@@ -31,7 +31,7 @@ let geolocation;
 if (window.addEventListener) {
   if ("geolocation" in navigator) {
     try {
-      input.addEventListener("click", e => {
+      input.addEventListener("click", function(e) {
         e.preventDefault();
 
         navigator.geolocation.getCurrentPosition(position => {
@@ -45,7 +45,7 @@ if (window.addEventListener) {
     }
   }
 
-  form.addEventListener("submit", e => {
+  form.addEventListener("submit", function(e) {
     e.preventDefault();
     var value = e.target.location.value;
     var number = parseInt(value);
