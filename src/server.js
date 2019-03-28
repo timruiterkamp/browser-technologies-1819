@@ -27,7 +27,7 @@ express()
   .use(bodyParser.json())
   .get("/", all)
   .post("/searchlocation", directions)
-  .listen(1902);
+  .listen(process.env.PORT || 1902);
 
 async function all(req, res, next) {
   res.render("overview");
