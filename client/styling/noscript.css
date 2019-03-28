@@ -1,15 +1,12 @@
 .routes {
-  margin-top: 14rem;
-}
+  margin-top: 14rem; }
+  @media screen and (max-width: 768px) {
+    .routes {
+      margin-top: 20rem; } }
 
 .route-description {
   width: 80vw;
   max-width: 500px;
   background-color: white;
   padding: 1em;
-  margin: 1em auto;
-}
-
-.mapboxgl-control-container {
-  display: none !important;
-}
+  margin: 1em auto; }

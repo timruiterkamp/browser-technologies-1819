@@ -1,6 +1,32 @@
 var form = document.querySelector("#search-form");
 var input = document.querySelector("#location");
 
+mapboxgl.accessToken =
+  "pk.eyJ1Ijoibm9jbHVlNHUiLCJhIjoiY2pvZWY2ZTA5MXdkbjN3bGVicm1hZDNvZCJ9.kIU-GIm7Cl36xhEFLaPU1w";
+
+const map = new mapboxgl.Map({
+  container: "map-container",
+  style: "mapbox://styles/noclue4u/cjth43b7477qe1foa6s1n76wv",
+  center: [4.6727, 52.5453],
+  zoom: 12
+});
+
+const container = map.getCanvasContainer();
+
+map.on("load", function() {
+  document.querySelector(".routes").style.display = "hidden";
+
+  console.log("loading");
+  map.addControl(
+    new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true
+    })
+  );
+});
+
 let geolocation;
 if (window.addEventListener) {
   if ("geolocation" in navigator) {
@@ -8,7 +34,7 @@ if (window.addEventListener) {
       e.preventDefault();
       navigator.geolocation.getCurrentPosition(position => {
         geolocation = position.coords;
-        input.value = "Loading geolocation...";
+        input.value = "Loading route...";
         input.value = `${geolocation.latitude}, ${geolocation.longitude}`;
       });
     });
@@ -19,6 +45,7 @@ if (window.addEventListener) {
     var value = e.target.location.value;
     var number = parseInt(value);
     var loading = document.querySelector("#loading");
+    loading.innerHTML = "Looking for the fastest route...";
     loading.style.display = "block";
     navigator.geolocation.watchPosition(
       function() {
@@ -58,39 +85,52 @@ function findDirection(value, e) {
     }
 
     findLocation(value, e, function(location) {
-      searchRoute(location.features[0].center, end, e, function(value) {
-        loadDirections(value);
-      });
+      console.log(location.features);
+      document.querySelector("#loading").style.display = "none";
+      var suggestions = document.querySelector("#suggestions");
+      var tripsuggestions = [];
+      var place = location.features;
+      for (var i = 0; i < place.length; i++) {
+        tripsuggestions.push(
+          "<br><li>" +
+            "<a class=" +
+            "place" +
+            " href=" +
+            '"' +
+            place[i].place_name +
+            '"' +
+            "alt=" +
+            '"' +
+            "plaats:" +
+            place[i].place_name +
+            '">' +
+            place[i].place_name +
+            "</a>"
+        ) + "</li>";
+        suggestions.innerHTML = "<br>Did you mean:" + tripsuggestions;
+      }
+      var places = document.querySelectorAll(".place");
+      for (var i = 0; i < places.length; i++) {
+        places[i].addEventListener("click", function(e) {
+          e.preventDefault();
+          var value = e.target.innerHTML;
+          for (var i = 0; i < location.features.length; i++) {
+            if (location.features[i].place_name === value.toString()) {
+              searchRoute(location.features[i].center, end, e, function(value) {
+                loadDirections(value);
+              });
+            }
+          }
+        });
+      }
+      suggestions.style.zIndex = "1";
+      suggestions.style.display = "block";
     });
   }
 }
 function loadDirections(directions) {
   let data = [];
-  var instructions = document.getElementById("instruction");
-  console.log(directions);
-  var steps = directions.routes[0].legs[0].steps;
-  document.querySelector("#loading").style.display = "none";
-
-  var tripInstructions = [];
-  for (var i = 0; i < steps.length; i++) {
-    tripInstructions.push(
-      "<br><li>" +
-        "step " +
-        [i] +
-        "  " +
-        steps[i].maneuver.instruction +
-        " after " +
-        steps[i].distance +
-        " meters"
-    ) + "</li>";
-    instructions.innerHTML =
-      '<br><span class="duration">Walking duration: ' +
-      Math.floor(directions.routes[0].duration / 60) +
-      " minutes </span>" +
-      tripInstructions;
-  }
-  instructions.style.zIndex = "1";
-  instructions.style.display = "block";
+  document.querySelector("#suggestions").style.display = "none";
 
   directions.routes[0].legs[0].steps.map(step => {
     var steps = {
@@ -152,60 +192,6 @@ function loadMap(data) {
       }
     });
   }
-
-  map.on("load", function() {
-    document.querySelector(".routes").style.display = "hidden";
-    // Add starting point to the map
-    map.addLayer({
-      id: "point",
-      type: "circle",
-      source: {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              properties: {},
-              geometry: {
-                type: "Point",
-                coordinates: start
-              }
-            }
-          ]
-        }
-      },
-      paint: {
-        "circle-radius": 10,
-        "circle-color": "#3887be"
-      }
-    });
-
-    map.addLayer({
-      id: "end",
-      type: "circle",
-      source: {
-        type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              properties: {},
-              geometry: {
-                type: "Point",
-                coordinates: coords
-              }
-            }
-          ]
-        }
-      },
-      paint: {
-        "circle-radius": 10,
-        "circle-color": "#f30"
-      }
-    });
-  });
 }
 
 function request(url, e, cb) {
@@ -221,28 +207,27 @@ function request(url, e, cb) {
   xhr.send();
 }
 
-function url(end, config = { prefix: "", options: "" }) {
-  var prefix = config.prefix ? config.prefix : config;
-  var options = config.options ? `?${config.options}` : "/";
-  var key = config.options
+function url(end, prefixes, options) {
+  var prefix = prefixes ? prefixes : "";
+  var option = options ? `?${options}` : "/";
+  var key = options
     ? "&access_token=pk.eyJ1Ijoibm9jbHVlNHUiLCJhIjoiY2pvZWY2ZTA5MXdkbjN3bGVicm1hZDNvZCJ9.kIU-GIm7Cl36xhEFLaPU1w"
     : "?access_token=pk.eyJ1Ijoibm9jbHVlNHUiLCJhIjoiY2pvZWY2ZTA5MXdkbjN3bGVicm1hZDNvZCJ9.kIU-GIm7Cl36xhEFLaPU1w";
-  return "https://api.mapbox.com/" + end + "/" + prefix + options + key;
+  return "https://api.mapbox.com/" + end + "/" + prefix + option + key;
 }
 
 function searchLocation(query, e, fn) {
-  var fetchUrl = url("geocoding/v5/mapbox.places", {
-    prefix: `${query}.json`
-  });
+  var fetchUrl = url("geocoding/v5/mapbox.places", `${query}.json`);
   var value = request(fetchUrl, e, fn);
   return value;
 }
 
 function searchRoute(start, end, e, fn) {
-  var fetchUrl = url("directions/v5/mapbox/walking", {
-    prefix: `${start[0]},${start[1]};${end[0]},${end[1]}`,
-    options: "steps=true&geometries=geojson"
-  });
+  var fetchUrl = url(
+    "directions/v5/mapbox/walking",
+    start[0] + "," + start[1] + ";" + end[0] + "," + end[1],
+    "steps=true&geometries=geojson"
+  );
   var value = request(fetchUrl, e, fn);
   return value;
 }

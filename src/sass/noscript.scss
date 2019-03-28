@@ -1,5 +1,9 @@
 .routes {
   margin-top: 14rem;
+
+  @media screen and (max-width: 768px) {
+    margin-top: 20rem;
+  }
 }
 .route-description {
   width: 80vw;
