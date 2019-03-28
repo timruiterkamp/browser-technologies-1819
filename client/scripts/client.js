@@ -30,14 +30,19 @@ map.on("load", function() {
 let geolocation;
 if (window.addEventListener) {
   if ("geolocation" in navigator) {
-    input.addEventListener("click", e => {
-      e.preventDefault();
-      navigator.geolocation.getCurrentPosition(position => {
-        geolocation = position.coords;
-        input.value = "Loading route...";
-        input.value = `${geolocation.latitude}, ${geolocation.longitude}`;
+    try {
+      input.addEventListener("click", e => {
+        e.preventDefault();
+
+        navigator.geolocation.getCurrentPosition(position => {
+          geolocation = position.coords;
+          input.value = "Loading route...";
+          input.value = `${geolocation.latitude}, ${geolocation.longitude}`;
+        });
       });
-    });
+    } catch {
+      throw err;
+    }
   }
 
   form.addEventListener("submit", e => {
