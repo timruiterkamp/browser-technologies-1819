@@ -1,3 +1,9 @@
-# Browser technologies
+# Browser Technologies - Week 2
 
-In this class I will tackle different aspects of creating a strong, unbreakable product that's accessible to (almost) everyone.
+- Tab highlighting
+- Responsive fixes
+- Teksten beter leesbaar maken
+- Checken op kleurenblindheid
+- Loader tonen bij locatie ophalen
+- map kleuren nakijken
+-
