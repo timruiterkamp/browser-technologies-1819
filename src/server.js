@@ -39,7 +39,10 @@ async function directions(req, res, next) {
   }
   const end = [4.909457, 52.359849];
   const location = await mapbox.searchLocation(req.body.location);
-  const directions = await mapbox.searchRoute(location.features[0].center, end);
+  const directions = await mapbox.searchRoute(
+    location ? location.features[0].center : "",
+    end
+  );
   let data = [];
   directions.routes[0].legs[0].steps.map(step => {
     const steps = {
