@@ -89,7 +89,6 @@ function findDirection(value, e) {
     }
 
     findLocation(value, e, function(location) {
-      console.log(location.features);
       document.querySelector("#loading").style.display = "none";
       var suggestions = document.querySelector("#suggestions");
       var tripsuggestions = [];
@@ -135,12 +134,9 @@ function findDirection(value, e) {
 function loadDirections(directions) {
   let data = [];
   document.querySelector("#suggestions").style.display = "none";
-  function getLocations(step) {
-    for (var i = 0; i < step.length; i++) {
-      return step[i].info.location;
-    }
-  }
+
   directions.routes[0].legs[0].steps.map(function(step) {
+    console.log(step);
     var steps = {
       duration: (step.duration / 60).toFixed(1),
       name: step.name,
@@ -152,10 +148,20 @@ function loadDirections(directions) {
       location: getLocations(step.intersections)
     };
     data.push(steps);
+
+    console.log(data[0].location[0]);
     map.flyTo({
-      center: data[0].location[0],
+      center: data[0].location,
       zoom: 16
     });
+
+    function getLocations(steps) {
+      console.log(steps);
+      for (var i = 0; i < steps.length; i++) {
+        console.log(steps[i].location);
+        return steps[i].location;
+      }
+    }
 
     loadMap(directions.routes[0]);
   });
@@ -216,11 +222,31 @@ function request(url, e, cb) {
 }
 
 function url(end, prefixes, options) {
-  var prefix = prefixes ? prefixes : "";
-  var option = options ? `?${options}` : "/";
-  var key = options
-    ? "&access_token=pk.eyJ1Ijoibm9jbHVlNHUiLCJhIjoiY2pvZWY2ZTA5MXdkbjN3bGVicm1hZDNvZCJ9.kIU-GIm7Cl36xhEFLaPU1w"
-    : "?access_token=pk.eyJ1Ijoibm9jbHVlNHUiLCJhIjoiY2pvZWY2ZTA5MXdkbjN3bGVicm1hZDNvZCJ9.kIU-GIm7Cl36xhEFLaPU1w";
+  var prefix;
+  var option;
+  var key;
+
+  if (prefixes) {
+    prefix = prefixes;
+  } else {
+    prefix = "";
+  }
+
+  if (options) {
+    option = "?" + options;
+  } else {
+    option = "/";
+  }
+
+  if (options) {
+    console.log("heeft options", options);
+    key =
+      "&access_token=pk.eyJ1Ijoibm9jbHVlNHUiLCJhIjoiY2pvZWY2ZTA5MXdkbjN3bGVicm1hZDNvZCJ9.kIU-GIm7Cl36xhEFLaPU1w";
+  } else {
+    key =
+      "?access_token=pk.eyJ1Ijoibm9jbHVlNHUiLCJhIjoiY2pvZWY2ZTA5MXdkbjN3bGVicm1hZDNvZCJ9.kIU-GIm7Cl36xhEFLaPU1w";
+  }
+
   return "https://api.mapbox.com/" + end + "/" + prefix + option + key;
 }
 
