@@ -17,49 +17,81 @@ if (window.addEventListener) {
   form.addEventListener("submit", e => {
     e.preventDefault();
     var value = e.target.location.value;
-    var end = [4.909457, 52.359849];
-
+    var number = parseInt(value);
+    var loading = document.querySelector("#loading");
+    loading.style.display = "block";
     navigator.geolocation.watchPosition(
       function() {
         navigator.geolocation.getCurrentPosition(function(position) {
           var location = position.coords;
-          searchRoute(
-            [location.longitude, location.latitude],
-            end, e, function(value) {
-              loadDirections(value);
-
-            }
-          );
+          if (!number) {
+            findDirection(value, e);
+          } else {
+            findDirection([location.longitude, location.latitude], e);
+          }
         });
       },
       function(error) {
-        if (error.code == error.PERMISSION_DENIED)
-        function findLocation(value, e, fn) {
-          searchLocation(value, e, function(result) {
-            fn(result);
-          });
+        if (error.code == error.PERMISSION_DENIED && !number) {
+          findDirection(value, e);
+        } else {
+          loading.innerHTML = "Please enter a city name";
         }
-
-        findLocation(value, e, function(location) {
-          searchRoute(location.features[0].center, end, e, function(value){
-            loadDirections(value)
-          })
-        });
       }
     );
   });
 }
+
+function findDirection(value, e) {
+  var end = [4.909457, 52.359849];
+
+  if (parseInt(value)) {
+    console.log(end);
+    searchRoute(value, end, e, function(value) {
+      loadDirections(value);
+    });
+  } else {
+    function findLocation(value, e, fn) {
+      searchLocation(value, e, function(result) {
+        fn(result);
+      });
+    }
+
+    findLocation(value, e, function(location) {
+      searchRoute(location.features[0].center, end, e, function(value) {
+        loadDirections(value);
+      });
+    });
+  }
+}
 function loadDirections(directions) {
   let data = [];
-  var instructions = document.getElementById('instruction');
+  var instructions = document.getElementById("instruction");
+  console.log(directions);
   var steps = directions.routes[0].legs[0].steps;
+  document.querySelector("#loading").style.display = "none";
 
   var tripInstructions = [];
   for (var i = 0; i < steps.length; i++) {
-    tripInstructions.push('<br><li>' + steps[i].maneuver.instruction + ' after ' + steps[i].distance + ' meters') + '</li>';
-    instructions.innerHTML = '<br><span class="duration">Walking duration: ' + Math.floor(directions.routes[0].duration / 60) + ' minutes </span>' + tripInstructions;
-  } 
-  instructions.style.zIndex = '1'; 
+    tripInstructions.push(
+      "<br><li>" +
+        "step " +
+        [i] +
+        "  " +
+        steps[i].maneuver.instruction +
+        " after " +
+        steps[i].distance +
+        " meters"
+    ) + "</li>";
+    instructions.innerHTML =
+      '<br><span class="duration">Walking duration: ' +
+      Math.floor(directions.routes[0].duration / 60) +
+      " minutes </span>" +
+      tripInstructions;
+  }
+  instructions.style.zIndex = "1";
+  instructions.style.display = "block";
+
   directions.routes[0].legs[0].steps.map(step => {
     var steps = {
       duration: (step.duration / 60).toFixed(1),
@@ -73,105 +105,107 @@ function loadDirections(directions) {
     };
     data.push(steps);
     map.flyTo({
-      center:  data[0].location[0],
+      center: data[0].location[0],
       zoom: 16
-    })
+    });
 
-    loadMap(directions.routes[0])
-    
+    loadMap(directions.routes[0]);
   });
 }
 
 function loadMap(data) {
   var route = data.geometry.coordinates;
-    var geojson = {
-      type: "Feature",
-      properties: {},
-      geometry: {
-        type: "LineString",
-        coordinates: route
-      }
-    };
-    if (map.getSource("route")) {
-      map.getSource("route").setData(geojson);
-    } else {
-      // otherwise, make a new request
-      map.addLayer({
-        id: "route",
-        type: "line",
-        source: {
-          type: "geojson",
-          data: {
-            type: "Feature",
-            properties: {},
-            geometry: {
-              type: "LineString",
-              coordinates: geojson
-            }
-          }
-        },
-        layout: {
-          "line-join": "round",
-          "line-cap": "round"
-        },
-        paint: {
-          "line-color": "#3887be",
-          "line-width": 15,
-          "line-opacity": 1
-        }
-      });
+  var geojson = {
+    type: "Feature",
+    properties: {},
+    geometry: {
+      type: "LineString",
+      coordinates: route
     }
-
-    map.on("load", function() {
-      // Add starting point to the map
-      map.addLayer({
-        id: "point",
-        type: "circle",
-        source: {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                properties: {},
-                geometry: {
-                  type: "Point",
-                  coordinates: start
-                }
-              }
-            ]
+  };
+  if (map.getSource("route")) {
+    map.getSource("route").setData(geojson);
+  } else {
+    // otherwise, make a new request
+    map.addLayer({
+      id: "route",
+      type: "line",
+      source: {
+        type: "geojson",
+        data: {
+          type: "Feature",
+          properties: {},
+          geometry: {
+            type: "LineString",
+            coordinates: geojson
           }
-        },
-        paint: {
-          "circle-radius": 10,
-          "circle-color": "#3887be"
         }
-      });
+      },
+      layout: {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      paint: {
+        "line-color": "#FEFF00",
+        "line-width": 15,
+        "line-opacity": 1
+      }
+    });
+  }
 
-      map.addLayer({
-        id: 'end',
-        type: 'circle',
-        source: {
-          type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: [{
-              type: 'Feature',
+  map.on("load", function() {
+    document.querySelector(".routes").style.display = "hidden";
+    // Add starting point to the map
+    map.addLayer({
+      id: "point",
+      type: "circle",
+      source: {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
               properties: {},
               geometry: {
-                type: 'Point',
+                type: "Point",
+                coordinates: start
+              }
+            }
+          ]
+        }
+      },
+      paint: {
+        "circle-radius": 10,
+        "circle-color": "#3887be"
+      }
+    });
+
+    map.addLayer({
+      id: "end",
+      type: "circle",
+      source: {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
+              properties: {},
+              geometry: {
+                type: "Point",
                 coordinates: coords
               }
-            }]
-          }
-        },
-        paint: {
-          'circle-radius': 10,
-          'circle-color': '#f30'
+            }
+          ]
         }
-      });
+      },
+      paint: {
+        "circle-radius": 10,
+        "circle-color": "#f30"
+      }
     });
+  });
 }
 
 function request(url, e, cb) {
@@ -180,7 +214,7 @@ function request(url, e, cb) {
     if (xhr.readyState !== 4) return;
     if (xhr.status >= 200 && xhr.status < 300) {
       e.preventDefault();
-      return cb(JSON.parse(xhr.responseText))
+      return cb(JSON.parse(xhr.responseText));
     }
   };
   xhr.open("GET", url);
@@ -200,7 +234,7 @@ function searchLocation(query, e, fn) {
   var fetchUrl = url("geocoding/v5/mapbox.places", {
     prefix: `${query}.json`
   });
-  var value =  request(fetchUrl, e, fn);
+  var value = request(fetchUrl, e, fn);
   return value;
 }
 
@@ -209,6 +243,6 @@ function searchRoute(start, end, e, fn) {
     prefix: `${start[0]},${start[1]};${end[0]},${end[1]}`,
     options: "steps=true&geometries=geojson"
   });
-  var value =  request(fetchUrl, e, fn);
+  var value = request(fetchUrl, e, fn);
   return value;
 }
