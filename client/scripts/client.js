@@ -34,10 +34,10 @@ if (window.addEventListener) {
       input.addEventListener("click", function(e) {
         e.preventDefault();
 
-        navigator.geolocation.getCurrentPosition(position => {
+        navigator.geolocation.getCurrentPosition(function(position) {
           geolocation = position.coords;
           input.value = "Loading route...";
-          input.value = `${geolocation.latitude}, ${geolocation.longitude}`;
+          input.value = geolocation.latitude + "," + geolocation.longitude;
         });
       });
     } catch {
@@ -78,7 +78,6 @@ function findDirection(value, e) {
   var end = [4.909457, 52.359849];
 
   if (parseInt(value)) {
-    console.log(end);
     searchRoute(value, end, e, function(value) {
       loadDirections(value);
     });
@@ -136,8 +135,12 @@ function findDirection(value, e) {
 function loadDirections(directions) {
   let data = [];
   document.querySelector("#suggestions").style.display = "none";
-
-  directions.routes[0].legs[0].steps.map(step => {
+  function getLocations(step) {
+    for (var i = 0; i < step.length; i++) {
+      return step[i].info.location;
+    }
+  }
+  directions.routes[0].legs[0].steps.map(function(step) {
     var steps = {
       duration: (step.duration / 60).toFixed(1),
       name: step.name,
@@ -146,7 +149,7 @@ function loadDirections(directions) {
       type: step.maneuver.type,
       bearing_before: step.maneuver.bearing_before,
       bearing_after: step.maneuver.bearing_after,
-      location: step.intersections.map(info => info.location)
+      location: getLocations(step.intersections)
     };
     data.push(steps);
     map.flyTo({
