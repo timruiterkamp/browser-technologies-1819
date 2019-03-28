@@ -40,7 +40,7 @@ if (window.addEventListener) {
           input.value = geolocation.latitude + "," + geolocation.longitude;
         });
       });
-    } catch {
+    } catch (err) {
       throw err;
     }
   }
