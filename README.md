@@ -147,4 +147,8 @@ Based on the current grading form I scored good overall, there were some points 
 
 ### safari
 
-The first test I ran was in safari, the problem here was that it loaded geolocation over a unsafe connection and safari blocks this.
+The first test I ran was in safari, the problem here was that it loaded geolocation over a unsafe connection and safari blocks this. After setting a try and catch block around it, it worked again
+
+### Safari mobile
+
+The appearance of a input type didn't work correctly, so I solved this by using `-webkit-appearance`.

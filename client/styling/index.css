@@ -29,7 +29,7 @@ input[type="text"] {
   background-color: white;
   width: 70vw;
   max-width: 400px;
-  appearance: none;
+  -webkit-appearance: none;
   border: 0;
   padding: 1em 2em;
   font-size: 1.15rem;
@@ -50,7 +50,8 @@ input[type="text"] {
 input[type="submit"] {
   width: 15vw;
   max-width: 100px;
-  appearance: none;
+  -webkit-appearance: none;
+  background-color: white;
   border: 0;
   padding: 1em 0;
   font-size: 1.15rem;
