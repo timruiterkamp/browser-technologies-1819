@@ -162,6 +162,8 @@ input[type="submit"] {
     font-size: 1.25rem;
     list-style-type: none;
     border-bottom: 1px solid black; }
+  #suggestions a {
+    color: black; }
   @media screen and (max-width: 768px) {
     #suggestions {
       width: 61vw;
