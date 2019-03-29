@@ -167,3 +167,5 @@ No problems at all, very fast responses and everything works correctly.
 Somehow I got xmlHTTPrequest error: network error. But when I searched for a location there was no problem. It picked up the server side and the essention of the application is fullfilled.
 
 ### IE11
+
+While testing on IE11 I noticed some es6 things inside es5 code which I didn't code correctly. Tho the clien side scripting didn't work, the website did not break and server side worked perfectly.
