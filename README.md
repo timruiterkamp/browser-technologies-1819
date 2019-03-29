@@ -15,9 +15,9 @@ Take a look at my product and try to break things!
 6. [Features](#Features)
 7. [Codebase](#Codebase)
 8. [Features](#Features)
-9. [Conclusion](#Conclusion)
-
-[License](#License)
+9. [Testing](#Testing)
+10. [Browser testing](#Browser-testing)
+11. [Conclusion](#Conclusion)
 
 ## Live version
 
@@ -169,3 +169,8 @@ Somehow I got xmlHTTPrequest error: network error. But when I searched for a loc
 ### IE11
 
 While testing on IE11 I noticed some es6 things inside es5 code which I didn't code correctly. Tho the clien side scripting didn't work, the website did not break and server side worked perfectly.
+I also forgot to make a backup for the loading field so the fields would overlap. That is also fixed now.
+
+## Conclusion
+
+I think I can say my application does atleast work in all major browsers, as with es5 support as with es6 support. The server side takes over at the right times when the client side can't be implemented. In the short amount of time I'm happy with what I have delivered. Ofcourse there are improvements I could make like supporting multiple transports, finetuning the user interface with a toggle between list and map view for example. But overall I'm happy with the product.
