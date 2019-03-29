@@ -35,7 +35,6 @@ map.on("load", function() {
     });
   }
 
-  console.log("loading");
   map.addControl(
     new mapboxgl.GeolocateControl({
       positionOptions: {
