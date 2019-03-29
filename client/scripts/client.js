@@ -22,8 +22,16 @@ map.on("load", function() {
 
     viewToggle.addEventListener("click", function(e) {
       e.preventDefault();
-      document.querySelector("#map-container").style.display = "none";
-      document.querySelector(".routes").style.display = "block";
+
+      if (e.target.innerHTML.toLowerCase() === "toggle list") {
+        document.querySelector("#map-container").style.display = "none";
+        document.querySelector(".routes").style.display = "block";
+        viewToggle.innerHTML = "Toggle map";
+      } else {
+        e.preventDefault();
+        document.querySelector("#map-container").style.display = "block";
+        document.querySelector(".routes").style.display = "none";
+      }
     });
   }
 
