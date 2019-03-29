@@ -179,3 +179,13 @@ input[type="submit"] {
 .mapboxgl-ctrl-bottom-left,
 .mapboxgl-ctrl-bottom-right {
   display: none; }
+
+#view-toggle {
+  display: none;
+  position: fixed;
+  bottom: 25px;
+  left: 25px;
+  padding: 1em 2.5em;
+  background-color: white;
+  color: black;
+  z-index: 100; }

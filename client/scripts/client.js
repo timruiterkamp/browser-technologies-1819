@@ -14,7 +14,18 @@ const map = new mapboxgl.Map({
 const container = map.getCanvasContainer();
 
 map.on("load", function() {
-  document.querySelector(".routes").style.display = "hidden";
+  document.querySelector(".routes").style.display = "none";
+
+  var viewToggle = document.querySelector("#view-toggle");
+  if (viewToggle) {
+    viewToggle.style.display = "block";
+
+    viewToggle.addEventListener("click", function(e) {
+      e.preventDefault();
+      document.querySelector("#map-container").style.display = "none";
+      document.querySelector(".routes").style.display = "block";
+    });
+  }
 
   console.log("loading");
   map.addControl(
@@ -112,6 +123,7 @@ function findDirection(value, e) {
         ) + "</li>";
         suggestions.innerHTML = "<br>Did you mean:" + tripsuggestions;
       }
+
       var places = document.querySelectorAll(".place");
       for (var i = 0; i < places.length; i++) {
         places[i].addEventListener("click", function(e) {
@@ -133,10 +145,8 @@ function findDirection(value, e) {
 }
 function loadDirections(directions) {
   let data = [];
-  document.querySelector("#suggestions").style.display = "none";
 
   directions.routes[0].legs[0].steps.map(function(step) {
-    console.log(step);
     var steps = {
       duration: (step.duration / 60).toFixed(1),
       name: step.name,
@@ -149,25 +159,44 @@ function loadDirections(directions) {
     };
     data.push(steps);
 
-    console.log(data[0].location[0]);
+    var routes = document.querySelector(".routes");
+    var routesuggestions = [];
+    for (var i = 0; i < data.length; i++) {
+      routesuggestions.push(
+        "<br><article class=" +
+          "route-description>" +
+          "<h3>" +
+          data[i].instruction +
+          " after " +
+          data[i].distance +
+          "meters</h3>" +
+          "<p>Estimated time:" +
+          data[i].duration +
+          " minutes</p>" +
+          "<p>Current location:" +
+          data[i].name +
+          "</p></article>"
+      );
+      routes.innerHTML = "<br>" + routesuggestions;
+    }
+
     map.flyTo({
       center: data[0].location,
       zoom: 16
     });
 
     function getLocations(steps) {
-      console.log(steps);
       for (var i = 0; i < steps.length; i++) {
-        console.log(steps[i].location);
         return steps[i].location;
       }
     }
-
     loadMap(directions.routes[0]);
   });
 }
 
 function loadMap(data) {
+  document.querySelector("#suggestions").style.display = "none";
+
   var route = data.geometry.coordinates;
   var geojson = {
     type: "Feature",
@@ -239,7 +268,6 @@ function url(end, prefixes, options) {
   }
 
   if (options) {
-    console.log("heeft options", options);
     key =
       "&access_token=pk.eyJ1Ijoibm9jbHVlNHUiLCJhIjoiY2pvZWY2ZTA5MXdkbjN3bGVicm1hZDNvZCJ9.kIU-GIm7Cl36xhEFLaPU1w";
   } else {
@@ -247,21 +275,24 @@ function url(end, prefixes, options) {
       "?access_token=pk.eyJ1Ijoibm9jbHVlNHUiLCJhIjoiY2pvZWY2ZTA5MXdkbjN3bGVicm1hZDNvZCJ9.kIU-GIm7Cl36xhEFLaPU1w";
   }
 
-  return "https://api.mapbox.com/" + end + "/" + prefix + option + key;
+  return "https://api.mapbox.com/" + end + prefix + option + key;
 }
 
 function searchLocation(query, e, fn) {
-  var fetchUrl = url("geocoding/v5/mapbox.places" + "," + query + ".json");
+  var fetchUrl = url("geocoding/v5/mapbox.places" + "/" + query + ".json");
+
   var value = request(fetchUrl, e, fn);
+  document.querySelector("#loading").style.display = "none";
   return value;
 }
 
 function searchRoute(start, end, e, fn) {
   var fetchUrl = url(
-    "directions/v5/mapbox/walking",
+    "directions/v5/mapbox/walking/",
     start[0] + "," + start[1] + ";" + end[0] + "," + end[1],
     "steps=true&geometries=geojson"
   );
   var value = request(fetchUrl, e, fn);
+  document.querySelector("#loading").style.display = "none";
   return value;
 }

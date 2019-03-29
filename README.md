@@ -178,6 +178,10 @@ I tested my product in the device lab, everything loads correctly the only probl
 
 ![Device lab test](/gh-images/device-lab.jpg)
 
+## Screen reader
+
+I had to made some little changes in the screenreader functionality as the map could not be read. To solve this I create a list toggle which would hide te map and show naivagtion cards. Overall the screen reader worked out right, I think it would be good to use by someone with less eye sight.
+
 ## Conclusion
 
 I think I can say my application does atleast work in all major browsers, as with es5 support as with es6 support. The server side takes over at the right times when the client side can't be implemented. In the short amount of time I'm happy with what I have delivered. Ofcourse there are improvements I could make like supporting multiple transports, finetuning the user interface with a toggle between list and map view for example. But overall I'm happy with the product.
