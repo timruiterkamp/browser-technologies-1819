@@ -251,7 +251,7 @@ function url(end, prefixes, options) {
 }
 
 function searchLocation(query, e, fn) {
-  var fetchUrl = url("geocoding/v5/mapbox.places", `${query}.json`);
+  var fetchUrl = url("geocoding/v5/mapbox.places" + "," + query + ".json");
   var value = request(fetchUrl, e, fn);
   return value;
 }
