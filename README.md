@@ -17,7 +17,8 @@ Take a look at my product and try to break things!
 8. [Features](#Features)
 9. [Testing](#Testing)
 10. [Browser testing](#Browser-testing)
-11. [Conclusion](#Conclusion)
+11. [Device lab testing](#Device-lab)
+12. [Conclusion](#Conclusion)
 
 ## Live version
 
@@ -170,6 +171,12 @@ Somehow I got xmlHTTPrequest error: network error. But when I searched for a loc
 
 While testing on IE11 I noticed some es6 things inside es5 code which I didn't code correctly. Tho the clien side scripting didn't work, the website did not break and server side worked perfectly.
 I also forgot to make a backup for the loading field so the fields would overlap. That is also fixed now.
+
+## Device lab
+
+I tested my product in the device lab, everything loads correctly the only problem was that there was a keyboard bug that kept triggering and did not reconize my input. So the page loads but I couldn't test the keyboard correctly.
+
+![Device lab test](/gh-images/device-lab.jpg)
 
 ## Conclusion
 
